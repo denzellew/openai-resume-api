@@ -1,12 +1,11 @@
 from dotenv import load_dotenv
-import os
-import openai
+from generate_prompts import generate_prompts
+from openai_adapter import openai_chat
 
 load_dotenv()
 
-# Load your API key from an environment variable or secret management service
-openai.api_key = os.getenv("OPENAI_API_KEY")
 
-chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{"role": "user", "content": "Hello world"}])
+messages = generate_prompts("Google", "Software Engineer", "We are looking for a software engineer to join our team. You will be responsible for maintaining and improving our backend infrastructure.")
+chat_response = openai_chat(messages)
 
-print(chat_completion)
+print(chat_response)
